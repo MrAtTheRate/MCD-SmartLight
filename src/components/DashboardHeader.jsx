@@ -13,25 +13,29 @@ import {
 } from '@chakra-ui/react';
 import { FiMoon, FiSun, FiBell } from 'react-icons/fi';
 import { useAuth } from '../contexts/AuthContext';
-import { useTheme } from '../contexts/ThemeContext';
+import { useNavigate } from 'react-router-dom';
 
 const DashboardHeader = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { currentUser } = useAuth();
-  const { darkMode, toggleTheme } = useTheme();
+  const navigate = useNavigate();
+  const darkMode = colorMode === 'dark';
 
   const handleThemeToggle = () => {
-    toggleTheme();
     toggleColorMode();
   };
 
   return (
     <Flex
       as="header"
+      position="sticky"
+      top="0"
+      zIndex="docked"
       align="center"
       justify="space-between"
       w="100%"
       px={4}
+      pl={{ base: 12, md: 4 }}
       py={2}
       borderBottomWidth="1px"
       borderColor="gray.200"
@@ -53,6 +57,7 @@ const DashboardHeader = () => {
           icon={<FiBell />}
           variant="ghost"
           mr={4}
+          onClick={() => navigate('/alerts')}
         />
         <Menu>
           <MenuButton>
